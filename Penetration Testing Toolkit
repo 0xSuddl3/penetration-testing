@@ -1,6 +1,9 @@
-#######
-Toolkit
-#######
+## Obsolete Utilities ##
+- msfcli
+- msfpayload
+- msfencode
+
+## Toolkit ##
 
 Intelligence Gathering & Fingerprinting
 ---------------------------------------
