@@ -2,8 +2,10 @@
 Types of Penetration Testing
 ############################
 
-Overt Penetration Testing
-  White Box
+There are two basic types of Penetration Testing as mentioned below:
 
-Covert Penetration Testing
-  Black Box
+1. Overt Penetration Testing
+  - White Box
+
+2. Covert Penetration Testing
+  - Black Box
