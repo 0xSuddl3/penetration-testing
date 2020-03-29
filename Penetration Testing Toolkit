@@ -1,0 +1,63 @@
+#######
+Toolkit
+#######
+
+Intelligence Gathering & Fingerprinting
+---------------------------------------
+  Web Application Firewalls
+    wafw00f
+
+Enumeration & Reconnaissance
+-----------------------------
+  WordLists
+    Seclists
+  Domain Name Server (DNS)
+    Domain Enumeration
+      Massdns
+      Dnsenum
+    Subdomain Enumeration (with wordlists)
+    	Knockpy
+    	Sublist3r
+  Extracting Data
+    Scrapy
+  Encoding & Decoding
+  	CyberChef
+
+Scanning/Fuzzers/Discovery
+----------------------------
+  Web Applications
+    Scanning/Fuzzers
+	    Wfuzz
+      Sn1per
+    Brute-Force Directories / Directory Traverse
+      Dirb
+      Dirbuster
+      Gobuster
+  Network
+    nmap/zenmap
+    masscan
+    unicornscan
+    netdiscover
+  Content Management Systems (CMS)
+  	Whatcms.org
+  	Wpscan
+  	Joomscan
+  	CMSmap
+
+Exploitation
+------------
+  Web Applications
+    Burp Suite
+      Chrome Extensions/Add-on's
+        FoxyProxy
+        CookieEditor/CookieEditor+
+        BuiltWith/Wappalyzer
+    Cross Site Scipting (XSS)
+    	XSStrike
+    Database
+      Server Query Language (SQL)
+        Sqlmap
+
+Unsorted
+--------
+OWASP Zed Attack Proxy (ZAP)
