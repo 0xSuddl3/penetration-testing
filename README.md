@@ -1,3 +1,3 @@
-# cyber-security
+# penetration-testing
 
-Cyber Security project contains all the security related solutions including Security Operations Center (SOC) & Penetration Testing (PT) domains.
+Penetration Testing project will contain all the methodologies, techniques, cheatsheets, toolkits and links which have been used wildy in th PT domain.
