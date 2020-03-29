@@ -1,0 +1,53 @@
+## Host Discovery Tools##
+  - fping
+  - hping
+  - nmap/zenmap
+
+Note: Use Wireshark to capture & monitor traffic while using below scan parameters
+
+## fping ##
+
+	fping -h
+	fping -a 192.168.1.1
+	fping -A 192.168.1.1 	# Try to a host that is alive
+	fping -A 192.168.1.1	# Try to a host that is unreachable
+	fping -A 192.168.1.1 -r 0	# Won't retry, and increases ping response
+	fping -A 192.168.1.1 -e 	# Will show the time required to ping the target
+	fping -q -a -g 192.168.1.0/24 -r 0 -e
+
+-q To allow fping to be quiet
+-a To check who is alive
+-g To scan a network e.g /24
+-r To specific retries if target is unreachable
+-e To show time spent during each target scan
+
+
+## hping3 ##
+
+	hping3 -h
+	hping3 -1 192.168.1.1 -c 3	# To send tcp 3 icmp requests to target
+	hping3 --icmp-ts 192.168.1.1 -c 3 -V	# To send time stamp icmp requests and see verbose
+	hping3 -2 192.168.1.1 -c 3 -V		# To send udp 3 icmp requests to target and see verbose
+	hping3 -S 192.168.1.1 -c 3		# To send 3 tcp icmp packet with SYN flag set to target
+	hping3 -S 192.168.1.1 -c 3 -p 80	# To send 3 tcp icmp packet with SYN flag set to target on port 80
+	hping3 -F 192.168.1.1 -c 3		# To send 3 tcp icmp packet with  flag set to target
+	hping3 -U 192.168.1.1 -c 3		# To send 3 tcp icmp packet with SYN flag set to target
+	hping3 -X 192.168.1.1 -c 3		# To send 3 tcp icmp packet with SYN flag set to target
+	hping3 -Y 192.168.1.1 -c 3		# To send 3 tcp icmp packet with SYN flag set to target
+	hping3 -F -P -U 192.168.1.1 -c 3		# To send 3 tcp icmp packet with SYN flag set to target
+	hping3 -1 192.168.1.x --rand-dest -I eth0		# To send 3 tcp icmp packet with SYN flag set to target
+
+## nmap/zenmap ##
+
+	nmap -h
+	nmap -sn 192.168.1.1
+	nmap -sn 192.168.1.1 --disable-arp-ping
+	nmap -sn -PS 192.168.1.1 --disable-arp-ping
+	nmap -sn -PS53 192.168.1.1 --disable-arp-ping
+	nmap -sn -PA 192.168.1.1 --disable-arp-ping
+	nmap -sn -PU 192.168.1.1 --disable-arp-ping
+	nmap -sn -PY 192.168.1.1 --disable-arp-ping
+	nmap -sn -PE 192.168.1.1 --disable-arp-ping
+	nmap -sn -PM 192.168.1.1 --disable-arp-ping
+	nmap -sn -PP 192.168.1.1 --disable-arp-ping
+	nmap -sn -PS 192.168.1.0/24 --disable-arp-ping

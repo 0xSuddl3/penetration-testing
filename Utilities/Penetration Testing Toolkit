@@ -7,7 +7,15 @@
 
 Intelligence Gathering & Fingerprinting
 ---------------------------------------
+  Host Discovery
+    fping
+    hping3
+    nmap/zenmap
+    shodan.io
+    exploits.shodan.io
+
   Web Application Firewalls
+    foca
     wafw00f
 
 Enumeration & Reconnaissance
@@ -18,6 +26,7 @@ Enumeration & Reconnaissance
     Domain Enumeration
       Massdns
       Dnsenum
+      dnstwist
     Subdomain Enumeration (with wordlists)
     	Knockpy
     	Sublist3r
