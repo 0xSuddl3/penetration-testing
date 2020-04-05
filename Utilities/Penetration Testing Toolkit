@@ -5,20 +5,48 @@
 
 ## Toolkit ##
 
-Intelligence Gathering & Fingerprinting
+To keep track
+ - Dradis, Faraday and Magitree
+
+Intelligence Gathering & Footprinting
 ---------------------------------------
   Host Discovery
-    fping
-    hping3
-    nmap/zenmap
-    shodan.io
-    exploits.shodan.io
+    - ICMP ping sweep
+    - fping
+    - hping3
+    - nmap/zenmap
+    - shodan.io
+    - exploits.shodan.io
 
   Web Application Firewalls
-    foca
-    wafw00f
+    - foca
+    - wafw00f
 
-Enumeration & Reconnaissance
+  DNS
+    - nslookup
+    - dig
+    - fierce
+    - dnsdumpster
+    - dnsenum	(domain brute-forcer)
+    - dnsmap (subdomain brute-forcer)
+    - dnsrecon (AllinOne)
+    http://network-tools.com/nslook/
+    http://www.dnsqueries.com/en/
+    http://www.mxtoolbox.com/
+
+
+  - maltego
+  - dmitry
+  - recon-ng
+  - whois
+  theharvester
+  archive.org
+  www.pipl.com
+  spokeo
+  peoplefinders
+  crunchbase
+
+Reconnaissance & Enumeration
 -----------------------------
   WordLists
     Seclists
@@ -38,6 +66,7 @@ Enumeration & Reconnaissance
 Scanning/Fuzzers/Discovery
 ----------------------------
   Web Applications
+    davtest
     Scanning/Fuzzers
 	    Wfuzz
       Sn1per
@@ -70,6 +99,9 @@ Exploitation
       Server Query Language (SQL)
         Sqlmap
 
+    Privilege Escalation
+      Windows
+        https://github.com/AonCyberLabs/Windows-Exploit-Suggester
 Unsorted
 --------
 OWASP Zed Attack Proxy (ZAP)

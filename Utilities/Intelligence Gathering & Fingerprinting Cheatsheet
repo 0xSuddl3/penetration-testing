@@ -1,4 +1,4 @@
-## Host Discovery Tools##
+# Host Discovery Tools #
   - fping
   - hping
   - nmap/zenmap
@@ -24,6 +24,7 @@ Note: Use Wireshark to capture & monitor traffic while using below scan paramete
 
 ## hping3 ##
 
+Note: By default, hping3 sends packets to 0 port number, thats why its recommended to assign port
 	hping3 -h
 	hping3 -1 192.168.1.1 -c 3	# To send tcp 3 icmp requests to target
 	hping3 --icmp-ts 192.168.1.1 -c 3 -V	# To send time stamp icmp requests and see verbose
@@ -36,10 +37,87 @@ Note: Use Wireshark to capture & monitor traffic while using below scan paramete
 	hping3 -Y 192.168.1.1 -c 3		# To send 3 tcp icmp packet with SYN flag set to target
 	hping3 -F -P -U 192.168.1.1 -c 3		# To send 3 tcp icmp packet with SYN flag set to target
 	hping3 -1 192.168.1.x --rand-dest -I eth0		# To send 3 tcp icmp packet with SYN flag set to target
+  hping3 -S -f -p 80 192.168.2.1 -c 1
+
+Half Open/SYN TCP Scan
+  hping3 -S -p 80 -c 3 192.168.1.1
+  hping3 -S --scan 1-1000 192.168.1.1
+  hping3 -S --scan 80,139,445 192.168.1.1
+  hping3 -S --scan all 192.168.1.1
+  hping3 -S --scan known 192.168.1.1
+  hping3 -S --scan 80,445,500-550 192.168.1.1
+  hping3 -S --scan '80,445,500-550,!525' 192.168.1.1
+
+Half Open/SYN UDP Scan
+  hping3 -2 --scan 1-1000 192.168.1.1
+
+By Passing Firewall Detection
+
+  Method 1: Adding Random Data in header (Bypassing misconfigured IDS who check for specific header length)
+    hping3 -S -p 21 --data 24 192.168.2.1
+
+  Method 2: Scan from Random IPs
+    hping3 --rand-source -S -p 80 192.168.2.1 -c 3
+
+  Method 3: Spoofing Ping
+    hping3 -a 192.168.2.4 -S -p 80 192.168.2.1
+
+  Method 4: Scan with specific Source Port
+    hping3 -S -s 53 --scan known 192.168.2.1
+
+  Method 5: Christmas Scan (FIN,PSH,URG Flags)
+    hping3 -F -P -U 192.168.1.1 -c 3
+    hping3 -F -P -U -p 80 192.168.1.1 -c 3
+    hping3 -F -P -U --scan 1-100 192.168.1.1 -V
+
+  Method 6: No Scan (TCP Packet with no flags specified)
+    hping3 --scan 1-100 192.168.1.1
+
+  Scan Delay time
+    hping3 -l --rand-dest 192.168.2.x -I eth2
+
+  Time Delay in each Probe
+    hping3 -S --scan 80,443,21,22 192.168.2.1 -i u10
+
+Idle Scan
+
 
 ## nmap/zenmap ##
 
 	nmap -h
+
+By Passing Firewall Detection
+
+  Method 1: Fragmentation Scan (Bypassing IDS):
+    nmap -sS 192.168.2.1 -Pn --disable-arp-ping -n -p 80
+    nmap -f 192.168.2.1 -n -p 80 --disable-arp-ping -Pn
+    nmap -f -sS 192.168.2.1 -p 80,21,153,443 -Pn -n --disable-arp-ping
+    nmap -f -sS 192.168.2.1 -p 80 -Pn -n --data-length 100 --disable-arp-ping
+    nmap -f -sS 192.168.2.1 -p 80 -Pn -n --disable-arp-ping --data-length 48
+    nmap -f -f -sS 192.168.2.1 -p 80 -Pn -n --disable-arp-ping
+
+  Method 2: Adding Random Data in header (Bypassing misconfigured IDS who check for specific header length)
+    nmap -sS --data-length 10 -p 21 192.168.2.1
+
+  Method 3: Decoy/Spoofing Scan:
+    nmap -p 80 -D 192.168.2,4,ME,192.168.2.2 192.168.2.1
+    nmap -D RND:10 192.168.2.1 -sS -p 80 -Pn --disable-arp-ping
+
+  Method 4: Scan with specific Source Port
+    nmap --source-port 53 192.168.2.1 -sS
+
+  Method 5: Mac Spoofing
+    nmap --spoof-mac apple 192.168.2.1 -p 80 -Pn --disable-arp-ping -n
+    nmap --spoof-mac 0 192.168.2.1 -p 80 -Pn --disable-arp-ping -n
+    nmap --spoof-mac 00:11:22:33:44:55 192.168.2.1 -p 80 -Pn --disable-arp-ping -n
+
+  Method 6: Scanning from Random IPs list
+    Note: Create a host.list and save four ip addresses separated by line
+    nmap -iL hosts.list -sS -p 80,443,135,5555,21,22 --randomize-hosts
+
+Scan Delay time
+  nmap -iL hosts.list -sS -p 80,443,135,5555,21,22 --randomize-hosts -T 2
+
 	nmap -sn 192.168.1.1
 	nmap -sn 192.168.1.1 --disable-arp-ping
 	nmap -sn -PS 192.168.1.1 --disable-arp-ping
@@ -51,3 +129,57 @@ Note: Use Wireshark to capture & monitor traffic while using below scan paramete
 	nmap -sn -PM 192.168.1.1 --disable-arp-ping
 	nmap -sn -PP 192.168.1.1 --disable-arp-ping
 	nmap -sn -PS 192.168.1.0/24 --disable-arp-ping
+
+Idle Scan
+
+#  DNS Intelligence Gathering #
+	- nslookup
+	- dig
+	- fierce
+	- dnsenum	(domain brute-forcer)
+	- dnsmap (subdomain brute-forcer)
+	- dnsrecon (AllinOne)
+
+## nslookup ##
+
+  nslookup cybermamba.com
+  nslookup -query=mx cybermamba.com
+  nslookup -query=ns cybermamba.com
+  nslookup -query=any cybermamba.com
+  nslookup
+  	> set q=mx
+  	> cybermamba.com
+
+  	> set q=cname
+  	> www.cybermamba.com
+
+  	> exit
+
+## dig ##
+
+  dig cybermamba.com	# returns A record
+  dig cybermamba.com A	# returns A record same as default
+  dig +nocmd cybermamba.com MX +noall +answer
+  dig +nocmd cybermamba.com NS +noall +answer
+  dig +nocmd cybermamba.com A +noall +answer
+  dig cybermamba.com AXFR +noall +answer 	# Zone Transfer Attack - DNS Database/File record
+  dig +nocmd cybermamba.com AXFR +noall +answer @cybermamba.com	# Zone File record
+
+## fierce ##
+
+  fierce -dns cybermamba.com
+  fierce -dns cybermamba.com -dnsserver ns1.cybermamba.com
+
+## dnsenum ##
+
+  dnsenum cybermamba.com
+  dnsenum cybermamba.com --dnsserver ns1.cybermamba.com
+  dnsenum cybermamba.com -f /root/hosts.txt	# hosts.txt is the brute-force list
+
+## dnsmap ##
+
+  dnsmap cybermamba.com
+
+## dnsrecon ##
+
+  dnsrecon -d cybermamba.com
